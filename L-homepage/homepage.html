@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FDSM: Homepage</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="reviewData.js"></script>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script src="https://static.codehs.com/cdn/latest/chsfirebase/chsfirebase.min.js">
+  <script src="https://static.codehs.com/cdn/latest/chsfirebase/chsfirebase.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="review.html">Airliner Review Page</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a onclick="signOut();" href="../index.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+        
+    </div>
+    <div class="col-sm-4 text-left"> 
+            <h1>Flight Delay Statistical Machine</h1>
+      <h6>Put your flight number below and see if your flight will be delayed</h6>
+       <input value="" id="plane" type="text" id="textreponse" name="text" rows="4" cols="50" placeholder="Flight Number">
+       <br>
+       <br>
+      <button class="button-3" id="submitFDSM" role="button">Save Flight</button>
+      
+      <p></p>
+      <hr>
+      <h3>Plane Information</h3>
+      <p id="planeDisplay"></p>
+      <br>
+      <hr>
+      
+
+
+    </div>
+    <div class="col-sm-4 text-left"> 
+      <h1>Save your Flight</h1>
+      <p></p>
+      <hr>
+        <input value="" id="plane" type="text" id="textreponse" name="text" rows="4" cols="50" placeholder="Flight Number">
+        <br>
+        <br>
+         <input type="checkbox">
+          Do you want to receive updates on this flight?
+          <br>
+          <br>
+     <button class="button-3" id="submitFLIGHT" role="button">Save Flight</button>
+           <hr>
+      <h3>Plane Information</h3>
+      <p id="FlightSave"></p>
+      <br>
+      <hr>
+    </div>
+    <br>
+    <div class="col-sm-2 sidenav">
+    </div>
+  </div>
+</div>
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+
+    </div>
+    <div class="col-sm-8"> 
+        
+
+    </div>
+    <div class="col-sm-2 sidenav">
+      
+    </div>
+  
+</div>
+</div>
+ 
+
+<footer class="container-fluid text-center">
+    <p>Footer Text</p>
+</footer>
+<script src = "firebase_visual.js"></script>
+<script>
+         $("#submitFDSM").click(function()
+         {
+                var plane = $("#plane").val();
+                var URL = "https://aerodatabox.p.rapidapi.com/flights/AA8653/delays"
+                if (plane.length != 6)
+                {
+                    alert("The flight can only be 2 letters and 4 digits!");
+               }
+               else {
+                   const options = {
+                    	method: 'GET',
+                    	headers: {
+                    		'X-RapidAPI-Key': 'aeeb73f711msh67a7b20d3d3c7ebp1f6eccjsn7ecedd811c95',
+                    		'X-RapidAPI-Host': 'aerodatabox.p.rapidapi.com'
+                    	}
+                    };
+                    fetch('https://aerodatabox.p.rapidapi.com/flights/AA8653/delays', options)
+                	.then(response => response.json())
+                	.then(show())
+                	.catch(err => console.error(err));
+               
+
+                     function show()
+                        {
+                            
+                             document.getElementById("planeDisplay").innerHTML = "Please Wait";
+                             setTimeout(display, 500)
+                             
+                             
+                             function display() {
+                                  document.getElementById("planeDisplay").innerHTML = "MedianDelay00:02:00";
+                             }
+                            for(var i = 0; i < data.length; i++)
+                            {
+                                if(data[i].name == flight)
+                                {
+                                    $("#planeDisplay").append(data[i]["Average-Delay"]);
+                                } 
+                            }
+                        }
+                    }
+        })
+         $("#submitFLIGHT").click(function()
+         {
+                document.getElementById("FlightSave").innerHTML = "Flight Saved!";
+                })
+  
+
+</script>
+</body>
+
+</html>

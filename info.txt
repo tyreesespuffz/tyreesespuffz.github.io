@@ -1,0 +1,27 @@
+Add a Login?
+Updates current flight and saves
+Get the flight delay machine to work.
+
+Only Use HTML and Javascript
+Login page saves to firebase or airtables database.
+Login page provides info on saved flights.
+Have the FDSM work properly from the API
+Possibly send emails from a saved flight.
+If so, Have options to select what shows up in the email.
+Notify that they have logged out without using the alert function
+
+
+
+https://p2-airline-5493139.codehs.me/
+
+2. Anyone who is interested in saving and being reminded of there flight. They have an account and they will receive an email about there current flight status. Maybe if they want to be reminded or a family/friend flight to be notified when they leave or when they arrive.
+
+3.
+
+4.
+
+5. Changed a few things on the log in page, including a normal log in way incase said person doesn't have or isn't signed into a google account.
+
+6. The google login. It saves information to firebase with googles unique ID that is assigned to each account. Under the person has if they have saved a flight or not.
+
+7.

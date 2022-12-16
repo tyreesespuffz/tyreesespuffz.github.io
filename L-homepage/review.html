@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FDSM: Flight Review</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="../style.css">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://static.codehs.com/cdn/latest/chsfirebase/chsfirebase.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="../L-homepage/homepage.html">Home</a></li>
+        <li class="active"><a href="review.html">Airliner Review Page</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a onclick="signOut();" href="../index.html"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+      <div class="col-sm-2 sidenav">
+        
+    </div>
+    <div class="col-sm-8"> 
+            <h1>Leave A Review</h1>
+        <textarea id="diary-entry" value="" placeholder="Submit a Review"></textarea><br>
+        <form>
+  <label for="cars">Choose An Airliner</label>
+  <br>
+  <select name="cars" id="cars"  onchange="onChange(this.value)">
+    <option value="ASA">Alaskan Airlines</option>
+    <option value="AAY">AllegiantAir</option>
+    <option value="AAL">American Airlines</option>
+    <option value="VXP">Avelo Airlines</option>
+    <option value="MXY">Breeze Airways</option>
+    <option value="DAL">Delta Air Lines</option>
+    <option value="EAL">Eastern Airlines</option>
+    <option value="FFT">Frontier Airlines</option>
+    <option value="HAL">Hawaiian Airlines</option>
+    <option value="JBU">JetBlue</option>
+    <option value="SWA">Southwest Airlines</option>
+    <option value="NKS">Spirit Airlines</option>
+    <option value="SCX">Sun Country Airlines</option>
+    <option value="ULA">United Airlines</option>
+    
+  </select>
+  <br><br>
+
+</form>
+
+        <button class="button-3" id = "submit">Post Review</button>
+        <hr>
+        <button class="button-3" id = "access-firebase">See All Reviews</button>
+        <div>
+            <h3 id = "title"></h3>
+            <ul id = "firebase-tree"></ul>
+        
+        </div>
+        <script>
+            firebase.initialize({
+                projectName: 'airline1'
+            });
+            
+            var database = firebase.database();
+            
+            $("#submit").click(function(){
+                var diaryEntry = $("#diary-entry").val();
+                var date = new Date();
+                
+                
+                database.ref(my + "/" + date).set({
+                    User: diaryEntry,
+                    Airline: val
+
+                    
+                })
+            })
+            
+            
+        </script>
+  </div>
+          <div class="col-sm-2 sidenav">
+        
+    </div>
+    
+</div>
+
+
+<script src = "firebase_visual.js"></script>
+
+</body>
+</html>
